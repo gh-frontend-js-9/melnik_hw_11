@@ -4,6 +4,8 @@ async function login() {
   const pass = document.getElementById('password').value;
   const message = document.getElementById('message');
 
+  message.classList.remove('error');
+  message.innerText = "Loading..."
   const data = {
     "password": pass,
     "email": email,
@@ -31,7 +33,7 @@ async function login() {
       },
       body: JSON.stringify(data)
     });
-
+    message.innerText = "Success"
     window.localStorage.setItem("key", response.headers.get('x-auth-token'));
   }
   else{

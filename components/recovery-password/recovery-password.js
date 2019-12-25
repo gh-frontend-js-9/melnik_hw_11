@@ -8,6 +8,7 @@ async function recoverPass() {
   let errorText = '';
 
   message.innerText = "Loading...";
+  message.classList.remove('error');
   if (pass !== pass2) {
     error = true;
     errorText = "Passwords do not match <br>";
@@ -33,8 +34,14 @@ async function recoverPass() {
     };
     let response = await fetch('http://localhost:3000/api/users/reset_password', options);
     const json = await response.json();
-    console.log(json);
-    message.innerText = "Recover successful";
+    if(response.ok){
+      console.log(json);
+      message.innerText = "Recover successful";
+    }
+    else{
+      message.classList.add("error");
+      message.innerText = json;
+    }
   }
   else{
     message.innerHTML = errorText;
